@@ -14,18 +14,24 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name=".MainActivity"
-            android:label="@string/app_name" >
+            android:name=".SplashActivity"
+            android:label="@string/title_activity_splash" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <provider android:name="BirthProvider" 
-           	android:authorities="com.example.examplecontentprovider.Nomes;">
+
+        <provider
+            android:name=".BirthProvider"
+            android:authorities="com.example.examplecontentprovider.Nomes;" >
         </provider>
+
+        <activity
+            android:name=".MainActivity"
+            android:label="@string/app_name" >
+        </activity>
     </application>
 
 </manifest>
-
