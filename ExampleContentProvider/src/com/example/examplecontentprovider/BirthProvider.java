@@ -15,25 +15,20 @@ import android.text.TextUtils;
 import android.util.Log;
 
 public class BirthProvider extends ContentProvider {
-	 // fields for my content provider
 	 static final String PROVIDER_NAME = "com.example.examplecontentprovider.Nomes";
 	 static final String URL = "content://" + PROVIDER_NAME + "/friends";
 	 static final Uri CONTENT_URI = Uri.parse(URL);
 	   
-	 // fields for the database
 	 static final String ID = "id";
 	 static final String NAME = "name";
 	 
-	 // integer values used in content URI
 	 static final int FRIENDS = 1;
 	 static final int FRIENDS_ID = 2;
 	 
 	 DBHelper dbHelper;
 	   
-	 // projection map for a query
 	 private static HashMap<String, String> BirthMap;
 	 
-	 // maps content URI "patterns" to the integer values that were set above
 	 static final UriMatcher uriMatcher;
 	   static{
 	      uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
@@ -41,7 +36,6 @@ public class BirthProvider extends ContentProvider {
 	      uriMatcher.addURI(PROVIDER_NAME, "friends/#", FRIENDS_ID);
 	   }
 	   
-	   // database declarations
 	   private SQLiteDatabase database;
 	   static final String DATABASE_NAME = "Nomes";
 	   static final String TABLE_NAME = "nameTable";
@@ -52,7 +46,6 @@ public class BirthProvider extends ContentProvider {
 	      " name TEXT NOT NULL); ";
 	 
 	   
-	   // class that creates and manages the provider's database 
 	   private static class DBHelper extends SQLiteOpenHelper {
 
 		public DBHelper(Context context) {
@@ -70,8 +63,8 @@ public class BirthProvider extends ContentProvider {
 		public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 			// TODO Auto-generated method stub
 			Log.w(DBHelper.class.getName(),
-			        "Atualizando da vers„o " + oldVersion + " para a "
-			            + newVersion + ". A vers„o antiga ser· destruida");
+			        "Atualizando da vers√£o " + oldVersion + " para a "
+			            + newVersion + ". A vers√£o antiga ser√° destruida");
 			db.execSQL("DROP TABLE IF EXISTS " +  TABLE_NAME);
 	        onCreate(db);
 		}
@@ -83,7 +76,6 @@ public class BirthProvider extends ContentProvider {
 		// TODO Auto-generated method stub
 		Context context = getContext();
 		dbHelper = new DBHelper(context);
-		// permissions to be writable
 		database = dbHelper.getWritableDatabase();
 
 	    if(database == null)
@@ -117,9 +109,7 @@ public class BirthProvider extends ContentProvider {
 	      }
 	      Cursor cursor = queryBuilder.query(database, projection, selection, 
 	    		  selectionArgs, null, null, sortOrder);
-	      /** 
-	       * register to watch a content URI for changes
-	       */
+	   
 	      cursor.setNotificationUri(getContext().getContentResolver(), uri);
 
 	      return cursor;
@@ -169,7 +159,6 @@ public class BirthProvider extends ContentProvider {
 		
 		 switch (uriMatcher.match(uri)){
 	      case FRIENDS:
-	    	  // delete all the records of the table
 	    	  count = database.delete(TABLE_NAME, selection, selectionArgs);
 	    	  break;
 	      case FRIENDS_ID:
