@@ -19,14 +19,12 @@ public class MainActivity extends Activity {
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
 	}
 
 
 	public void deletarNomes (View view) {
-		// delete all the records and the table of the database provider
 		String URL = "content://com.example.examplecontentprovider.Nomes/friends";
 	        Uri friends = Uri.parse(URL);
 		int count = getContentResolver().delete(
@@ -38,7 +36,6 @@ public class MainActivity extends Activity {
 	}
 	
 	 public void addNomes(View view) {
-	      // Add a new birthday record
 	      ContentValues values = new ContentValues();
 
 	      values.put(BirthProvider.NAME, 
@@ -53,14 +50,13 @@ public class MainActivity extends Activity {
 
 
 	   public void mostrarNomes (View view) {
-	      // Show all the birthdays sorted by friend's name
 	      String URL = "content://com.example.examplecontentprovider.Nomes/friends";
 	      Uri friends = Uri.parse(URL);
 	      Cursor c = getContentResolver().query(friends, null, null, null, "name");
 	      String result = "Resultados:";
 	      
 	      if (!c.moveToFirst()) {
-	    	  Toast.makeText(this, result+" N„o h· nenhum nome!", Toast.LENGTH_LONG).show();
+	    	  Toast.makeText(this, result+" N√£o h√° nenhum nome!", Toast.LENGTH_LONG).show();
 	      }else{
 	    	  do{
 	            result = result + "\n" + c.getString(c.getColumnIndex(BirthProvider.NAME)) + 
